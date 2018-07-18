@@ -17,7 +17,8 @@ RUN apt-get update \
     && tar -xzvf apache-hive-$HIVE_VERSION-bin.tar.gz \
     && mv apache-hive-$HIVE_VERSION-bin hive \
     && wget https://jdbc.postgresql.org/download/postgresql-42.2.4.jar -O $HIVE_HOME/lib/postgresql-jdbc.jar \
-    && rm apache-hive-$HIVE_VERSION-bin.tar.gz \
+    && rm -rf apache-hive-$HIVE_VERSION-bin.tar.gz \
+    && rm -rf $HIVE_HOME/lib/log4j-slf4j-impl-*.jar \
     && apt-get --purge remove -y wget \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
