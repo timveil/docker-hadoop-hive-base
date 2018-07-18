@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo "hive base entrypoint"
+
 # Set some sensible defaults
 export CORE_CONF_fs_defaultFS=${CORE_CONF_fs_defaultFS:-hdfs://`hostname -f`:8020}
 
@@ -61,6 +63,8 @@ if [ "$MULTIHOMED_NETWORK" = "1" ]; then
 fi
 
 if [ -n "$GANGLIA_HOST" ]; then
+    echo "Configuring for ganglia host"
+
     mv /etc/hadoop/hadoop-metrics.properties /etc/hadoop/hadoop-metrics.properties.orig
     mv /etc/hadoop/hadoop-metrics2.properties /etc/hadoop/hadoop-metrics2.properties.orig
 
