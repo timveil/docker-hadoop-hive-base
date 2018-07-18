@@ -2,7 +2,7 @@ FROM timveil/docker-hadoop-base
 
 LABEL maintainer="tjveil@gmail.com"
 
-ENV HIVE_VERSION 2.3.2
+ENV HIVE_VERSION 2.3.3
 
 ENV HIVE_HOME /opt/hive
 ENV PATH $HIVE_HOME/bin:$PATH
