@@ -69,7 +69,7 @@ if [ -n "$GANGLIA_HOST" ]; then
         echo "$module.period=10"
         echo "$module.servers=$GANGLIA_HOST:8649"
     done > /etc/hadoop/hadoop-metrics.properties
-    
+
     for module in namenode datanode resourcemanager nodemanager mrappmaster jobhistoryserver; do
         echo "$module.sink.ganglia.class=org.apache.hadoop.metrics2.sink.ganglia.GangliaSink31"
         echo "$module.sink.ganglia.period=10"
@@ -99,7 +99,7 @@ function wait_for_it()
         echo "[$i/$max_try] ${service}:${port} is still not available; giving up after ${max_try} tries. :/"
         exit 1
       fi
-      
+
       echo "[$i/$max_try] try in ${retry_seconds}s once again ..."
       let "i++"
       sleep $retry_seconds
