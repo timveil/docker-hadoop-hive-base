@@ -23,10 +23,6 @@ RUN apt-get update \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-
-#Spark should be compiled with Hive to be able to use it
-#hive-site.xml should be copied to $SPARK_HOME/conf folder
-
 #Custom configuration goes here
 ADD conf/hive-site.xml $HIVE_HOME/conf
 ADD conf/beeline-log4j2.properties $HIVE_HOME/conf
@@ -43,6 +39,8 @@ COPY entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/entrypoint.sh
 
 EXPOSE 10000
+
+# hive ui
 EXPOSE 10002
 
 ENTRYPOINT ["entrypoint.sh"]
