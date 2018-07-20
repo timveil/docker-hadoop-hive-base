@@ -23,11 +23,10 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 # Custom configuration goes here
+ADD conf/hive-site.xml $HIVE_HOME/conf
 ADD conf/beeline-log4j2.properties $HIVE_HOME/conf
-#ADD conf/hive-env.sh $HIVE_HOME/conf
 ADD conf/hive-exec-log4j2.properties $HIVE_HOME/conf
 ADD conf/hive-log4j2.properties $HIVE_HOME/conf
-#ADD conf/ivysettings.xml $HIVE_HOME/conf
 ADD conf/llap-daemon-log4j2.properties $HIVE_HOME/conf
 
 ADD startup.sh /startup.sh
@@ -37,7 +36,5 @@ EXPOSE 10000
 
 # hive ui
 EXPOSE 10002
-
-#ENTRYPOINT ["/entrypoint.sh"]
 
 CMD ["/startup.sh"]
