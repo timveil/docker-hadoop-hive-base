@@ -3,7 +3,7 @@ FROM timveil/docker-hadoop-base
 LABEL maintainer="tjveil@gmail.com"
 
 ENV HIVE_VERSION 2.3.3
-ENV HIVE_HOME /opt/hive
+ENV HIVE_HOME /opt/hive-$HIVE_VERSION
 ENV PATH $HIVE_HOME/bin:$PATH
 
 WORKDIR /opt
@@ -13,7 +13,7 @@ RUN apt-get update \
     && apt-get install -y wget procps \
     && wget https://archive.apache.org/dist/hive/hive-$HIVE_VERSION/apache-hive-$HIVE_VERSION-bin.tar.gz \
     && tar -xzvf apache-hive-$HIVE_VERSION-bin.tar.gz \
-    && mv apache-hive-$HIVE_VERSION-bin hive \
+    && mv apache-hive-$HIVE_VERSION-bin $HIVE_HOME \
     && wget https://jdbc.postgresql.org/download/postgresql-42.2.4.jar -O $HIVE_HOME/lib/postgresql-jdbc.jar \
     && rm -rf apache-hive-$HIVE_VERSION-bin.tar.gz \
     && rm -rf $HIVE_HOME/lib/log4j-slf4j-impl-*.jar \
