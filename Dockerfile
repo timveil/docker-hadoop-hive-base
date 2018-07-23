@@ -4,7 +4,7 @@ LABEL maintainer="tjveil@gmail.com"
 
 ENV HIVE_VERSION 2.3.3
 ENV POSTGRESQL_JDBC_VERSION 42.2.4
-ENV HIVE_HOME /opt/hive-$HIVE_VERSION
+ENV HIVE_HOME /opt/hive
 ENV PATH $HIVE_HOME/bin:$PATH
 
 # Install Hive and PostgreSQL JDBC
