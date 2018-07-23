@@ -5,7 +5,6 @@ LABEL maintainer="tjveil@gmail.com"
 ENV HIVE_VERSION 2.3.3
 ENV HIVE_HOME /opt/hive
 ENV PATH $HIVE_HOME/bin:$PATH
-ENV HADOOP_HOME /opt/hadoop-$HADOOP_VERSION
 
 WORKDIR /opt
 
