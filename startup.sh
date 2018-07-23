@@ -1,8 +1,8 @@
 #!/bin/bash
 
-echo "creating /tmp and updating ownership"
-hadoop fs -mkdir       /tmp
-hadoop fs -chmod g+w   /tmp
+#echo "creating /tmp and updating ownership"
+#hadoop fs -mkdir       /tmp
+#hadoop fs -chmod g+w   /tmp
 
 echo "creating /user/hive/warehouse and updating ownership"
 hadoop fs -mkdir -p    /user/hive/warehouse
