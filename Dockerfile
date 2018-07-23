@@ -8,7 +8,7 @@ ENV PATH $HIVE_HOME/bin:$PATH
 
 # Install Hive and PostgreSQL JDBC
 RUN curl -fSL https://archive.apache.org/dist/hive/hive-$HIVE_VERSION/apache-hive-$HIVE_VERSION-bin.tar.gz -o /tmp/hive.tar.gz \
-    && tar -xzvf /tmp/hive.tar.gz -C /opt/ \
+    && tar -xvf /tmp/hive.tar.gz -C /opt/ \
     && mv /opt/apache-hive-$HIVE_VERSION-bin $HIVE_HOME \
     && curl -fSL https://jdbc.postgresql.org/download/postgresql-42.2.4.jar -o $HIVE_HOME/lib/postgresql-jdbc.jar \
     && rm -rf /tmp/hive.tar.gz \
