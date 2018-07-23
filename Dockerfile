@@ -9,8 +9,9 @@ ENV PATH $HIVE_HOME/bin:$PATH
 
 # Install Hive and PostgreSQL JDBC
 RUN curl -fSL https://archive.apache.org/dist/hive/hive-$HIVE_VERSION/apache-hive-$HIVE_VERSION-bin.tar.gz -o /tmp/hive.tar.gz \
-    && tar -xvf /tmp/hive.tar.gz -C /opt/ \
-    && mv /opt/apache-hive-$HIVE_VERSION-bin $HIVE_HOME \
+    && mkdir -p /tmp/hive \
+    && tar -xvf /tmp/hive.tar.gz -C /tmp/hive --strip-components=1 \
+    && mv /tmp/hive $HIVE_HOME \
     && rm -rf /tmp/hive.tar.gz \
     && rm -rf $HIVE_HOME/lib/log4j-slf4j-impl-*.jar \
     && rm -rf $HIVE_HOME/lib/postgresql-*.jre*.jar \
@@ -22,11 +23,9 @@ ADD conf/beeline-log4j2.properties $HIVE_HOME/conf
 ADD conf/hive-exec-log4j2.properties $HIVE_HOME/conf
 ADD conf/hive-log4j2.properties $HIVE_HOME/conf
 ADD conf/llap-daemon-log4j2.properties $HIVE_HOME/conf
-
+ADD conf/llap-cli-log4j2.properties $HIVE_HOME/conf
 
 EXPOSE 10000
 
 # hive ui
 EXPOSE 10002
-
-
