@@ -23,12 +23,10 @@ ADD conf/hive-exec-log4j2.properties $HIVE_HOME/conf
 ADD conf/hive-log4j2.properties $HIVE_HOME/conf
 ADD conf/llap-daemon-log4j2.properties $HIVE_HOME/conf
 
-ADD startup.sh /startup.sh
-RUN chmod +x /startup.sh
 
 EXPOSE 10000
 
 # hive ui
 EXPOSE 10002
 
-CMD ["/startup.sh"]
+
