@@ -12,9 +12,9 @@ RUN curl -fSL https://archive.apache.org/dist/hive/hive-$HIVE_VERSION/apache-hiv
     && tar -xvf /tmp/hive.tar.gz -C /opt/ \
     && mv /opt/apache-hive-$HIVE_VERSION-bin $HIVE_HOME \
     && rm -rf /tmp/hive.tar.gz \
-    && rm -rf $HIVE_HOME/lib/log4j-slf4j-impl-*.jar
-    && rm -rf $HIVE_HOME/lib/postgresql-*.jre.jar
-    && curl -fSL https://jdbc.postgresql.org/download/postgresql-$POSTGRESQL_JDBC_VERSION.jar -o $HIVE_HOME/lib/postgresql-jdbc.jar \
+    && rm -rf $HIVE_HOME/lib/log4j-slf4j-impl-*.jar \
+    && rm -rf $HIVE_HOME/lib/postgresql-*.jre.jar \
+    && curl -fSL https://jdbc.postgresql.org/download/postgresql-$POSTGRESQL_JDBC_VERSION.jar -o $HIVE_HOME/lib/postgresql-jdbc.jar
 
 # Custom configuration goes here
 ADD conf/hive-site.xml $HIVE_HOME/conf
