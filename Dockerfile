@@ -10,7 +10,7 @@ ENV HIVE_TMP_DIR /tmp/hive
 ENV PATH $HIVE_HOME/bin:$PATH
 
 # Install Hive and PostgreSQL JDBC; procps needed for hive ps command
-RUN apt-get install -y procps
+RUN apt-get install -y procps \
     && curl -fSL https://archive.apache.org/dist/hive/hive-$HIVE_VERSION/apache-hive-$HIVE_VERSION-bin.tar.gz -o /tmp/hive.tar.gz \
     && mkdir -pv $HIVE_TMP_DIR \
     && tar -xvf /tmp/hive.tar.gz -C $HIVE_TMP_DIR --strip-components=1 \
