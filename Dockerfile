@@ -5,13 +5,14 @@ LABEL maintainer="tjveil@gmail.com"
 ENV HIVE_VERSION 2.3.3
 ENV POSTGRESQL_JDBC_VERSION 42.2.4
 ENV HIVE_HOME /opt/hive
+ENV HIVE_TMP /tmp/hive
 ENV PATH $HIVE_HOME/bin:$PATH
 
 # Install Hive and PostgreSQL JDBC
 RUN curl -fSL https://archive.apache.org/dist/hive/hive-$HIVE_VERSION/apache-hive-$HIVE_VERSION-bin.tar.gz -o /tmp/hive.tar.gz \
-    && mkdir -p /tmp/hive \
-    && tar -xvf /tmp/hive.tar.gz -C /tmp/hive --strip-components=1 \
-    && mv /tmp/hive $HIVE_HOME \
+    && mkdir -p $HIVE_TMP \
+    && tar -xvf /tmp/hive.tar.gz -C $HIVE_TMP --strip-components=1 \
+    && mv $HIVE_TMP /opt \
     && rm -rf /tmp/hive.tar.gz \
     && rm -rf $HIVE_HOME/lib/log4j-slf4j-impl-*.jar \
     && rm -rf $HIVE_HOME/lib/postgresql-*.jre*.jar \
