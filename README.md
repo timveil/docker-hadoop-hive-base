@@ -1,3 +1,3 @@
-# docker-hadoop-hive
+# docker-hadoop-hive-base
 
-docker build --no-cache -t timveil/docker-hadoop-hive:latest .
+docker build --no-cache -t timveil/docker-hadoop-hive-base:latest .
