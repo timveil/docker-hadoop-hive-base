@@ -17,7 +17,6 @@ RUN apt-get update \
     && tar -xvf /tmp/hive.tar.gz -C $HIVE_TMP_DIR --strip-components=1 \
     && mv -v $HIVE_TMP_DIR /opt \
     && rm -rfv /tmp/hive.tar.gz \
-    && rm -rfv $HIVE_HOME/lib/log4j-slf4j-impl-*.jar \
     && rm -rfv $HIVE_HOME/lib/postgresql-*.jre*.jar \
     && curl -fSL https://jdbc.postgresql.org/download/postgresql-$POSTGRESQL_JDBC_VERSION.jar -o $HIVE_HOME/lib/postgresql-jdbc.jar
 
