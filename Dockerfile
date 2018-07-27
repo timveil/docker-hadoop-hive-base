@@ -2,8 +2,8 @@ FROM timveil/docker-hadoop-base
 
 LABEL maintainer="tjveil@gmail.com"
 
-ENV HIVE_HOME /opt/hive
-ENV PATH $HIVE_HOME/bin:$PATH
+ENV HIVE_HOME=/opt/hive
+ENV PATH=$HIVE_HOME/bin:$PATH
 
 ARG HIVE_VERSION=2.3.3
 ARG HIVE_CONF_DIR=$HIVE_HOME/conf
