@@ -2,12 +2,13 @@ FROM timveil/docker-hadoop-base
 
 LABEL maintainer="tjveil@gmail.com"
 
-ENV HIVE_VERSION 2.3.3
-ENV POSTGRESQL_JDBC_VERSION 42.2.4
 ENV HIVE_HOME /opt/hive
-ENV HIVE_CONF_DIR $HIVE_HOME/conf
-ENV HIVE_DOWNLOAD_DIR /tmp/hive
 ENV PATH $HIVE_HOME/bin:$PATH
+
+ARG HIVE_VERSION=2.3.3
+ARG HIVE_CONF_DIR=$HIVE_HOME/conf
+ARG HIVE_DOWNLOAD_DIR=/tmp/hive
+ARG POSTGRESQL_JDBC_VERSION=42.2.4
 
 # Install Hive and PostgreSQL JDBC; procps needed for hive ps command
 RUN apt-get update \
