@@ -10,7 +10,7 @@ ARG HIVE_VERSION=2.3.3
 ARG HIVE_DOWNLOAD_DIR=/tmp/hive
 ARG POSTGRESQL_JDBC_VERSION=42.2.4
 
-# Install Hive and PostgreSQL JDBC; procps needed for hive ps command
+# Install Hive and PostgreSQL JDBC
 RUN curl -fSL https://archive.apache.org/dist/hive/hive-$HIVE_VERSION/apache-hive-$HIVE_VERSION-bin.tar.gz -o /tmp/hive.tar.gz \
     && mkdir -pv $HIVE_DOWNLOAD_DIR \
     && tar -xvf /tmp/hive.tar.gz -C $HIVE_DOWNLOAD_DIR --strip-components=1 \
