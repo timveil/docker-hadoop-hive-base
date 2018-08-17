@@ -11,9 +11,7 @@ ARG HIVE_DOWNLOAD_DIR=/tmp/hive
 ARG POSTGRESQL_JDBC_VERSION=42.2.4
 
 # Install Hive and PostgreSQL JDBC; procps needed for hive ps command
-RUN apt-get update \
-    && apt-get install -y procps \
-    && curl -fSL https://archive.apache.org/dist/hive/hive-$HIVE_VERSION/apache-hive-$HIVE_VERSION-bin.tar.gz -o /tmp/hive.tar.gz \
+RUN curl -fSL https://archive.apache.org/dist/hive/hive-$HIVE_VERSION/apache-hive-$HIVE_VERSION-bin.tar.gz -o /tmp/hive.tar.gz \
     && mkdir -pv $HIVE_DOWNLOAD_DIR \
     && tar -xvf /tmp/hive.tar.gz -C $HIVE_DOWNLOAD_DIR --strip-components=1 \
     && mv -v $HIVE_DOWNLOAD_DIR /opt \
