@@ -8,7 +8,7 @@ ENV HIVE_CONF_DIR=$HIVE_HOME/conf
 
 ARG HIVE_VERSION=3.1.0
 ARG HIVE_DOWNLOAD_DIR=/tmp/hive
-ARG POSTGRESQL_JDBC_VERSION=42.2.4
+ARG POSTGRESQL_JDBC_VERSION=42.2.5
 
 # Install Hive and PostgreSQL JDBC
 RUN curl -fSL https://archive.apache.org/dist/hive/hive-$HIVE_VERSION/apache-hive-$HIVE_VERSION-bin.tar.gz -o /tmp/hive.tar.gz \
@@ -21,6 +21,7 @@ RUN curl -fSL https://archive.apache.org/dist/hive/hive-$HIVE_VERSION/apache-hiv
 
 # Custom configuration goes here
 ADD conf/hive-site.xml $HIVE_CONF_DIR
+ADD conf/metastore-site.xml $HIVE_CONF_DIR
 ADD conf/beeline-log4j2.properties $HIVE_CONF_DIR
 ADD conf/hive-exec-log4j2.properties $HIVE_CONF_DIR
 ADD conf/hive-log4j2.properties $HIVE_CONF_DIR
