@@ -19,6 +19,7 @@ RUN curl -fSL https://archive.apache.org/dist/hive/hive-$HIVE_VERSION/apache-hiv
     && rm -rfv $HIVE_HOME/lib/postgresql-*.jre*.jar \
     && curl -fSL https://jdbc.postgresql.org/download/postgresql-$POSTGRESQL_JDBC_VERSION.jar -o $HIVE_HOME/lib/postgresql-jdbc.jar
 
+# Removing conflicting debendinceis which cause multiple binding warnings in slf4j
 RUN rm -rfv $HADOOP_HOME/share/hadoop/common/lib/slf4j-log4j12-*.jar $HADOOP_HOME/share/hadoop/common/lib/log4j-*.jar
 
 # Custom configuration goes here
