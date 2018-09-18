@@ -22,6 +22,7 @@ RUN curl -fSL https://archive.apache.org/dist/hive/hive-$HIVE_VERSION/apache-hiv
 # Custom configuration goes here
 ADD conf/hive-site.xml $HIVE_CONF_DIR
 ADD conf/metastore-site.xml $HIVE_CONF_DIR
+ADD conf/metastore-log4j2.properties $HIVE_CONF_DIR
 ADD conf/beeline-log4j2.properties $HIVE_CONF_DIR
 ADD conf/hive-exec-log4j2.properties $HIVE_CONF_DIR
 ADD conf/hive-log4j2.properties $HIVE_CONF_DIR
