@@ -1,3 +1,3 @@
 # docker-hadoop-hive-base
 
-docker build --no-cache -t timveil/docker-hadoop-hive-base:2.3.x .
+docker build --no-cache -t timveil/docker-hadoop-hive-base:1.2.x .
