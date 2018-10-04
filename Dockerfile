@@ -39,7 +39,7 @@ RUN cd /opt/tez \
 
 # Stage 1 - Build Hive base
 
-FROM timveil/docker-hadoop-core:2.8.x
+FROM timveil/docker-hadoop-core:3.1.x
 
 LABEL maintainer="tjveil@gmail.com"
 
