@@ -44,13 +44,12 @@ FROM timveil/docker-hadoop-core:2.8.x
 LABEL maintainer="tjveil@gmail.com"
 
 ENV HIVE_HOME=/opt/hive
-#ENV TEZ_HOME=/opt/tez
 ENV PATH=$HIVE_HOME/bin:$PATH
 ENV HIVE_CONF_DIR=$HIVE_HOME/conf
 
 ARG HIVE_VERSION=1.2.2
 ARG HIVE_DOWNLOAD_DIR=/tmp/hive
-ARG POSTGRESQL_JDBC_VERSION=42.2.4
+ARG POSTGRESQL_JDBC_VERSION=42.2.5
 
 # Install Hive and PostgreSQL JDBC
 RUN curl -fSL https://archive.apache.org/dist/hive/hive-$HIVE_VERSION/apache-hive-$HIVE_VERSION-bin.tar.gz -o /tmp/hive.tar.gz \
@@ -60,12 +59,8 @@ RUN curl -fSL https://archive.apache.org/dist/hive/hive-$HIVE_VERSION/apache-hiv
     && rm -rfv /tmp/hive.tar.gz \
     && rm -rfv $HIVE_HOME/lib/postgresql-*.jre*.jar \
     && curl -fSL https://jdbc.postgresql.org/download/postgresql-$POSTGRESQL_JDBC_VERSION.jar -o $HIVE_HOME/lib/postgresql-jdbc.jar
-    #&& mkdir -pv $TEZ_HOME
 
 COPY --from=tez-builder /tmp/*.tar.gz /tmp/
-
-#RUN tar -xvf /tmp/tez-minimal.tar.gz -C $TEZ_HOME --strip-components=1 \
-#    && rm -rfv /tmp/tez-minimal.tar.gz
 
 # Custom configuration goes here
 ADD conf/hive-site.xml $HIVE_CONF_DIR
