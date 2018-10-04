@@ -49,7 +49,7 @@ ENV HIVE_CONF_DIR=$HIVE_HOME/conf
 
 ARG HIVE_VERSION=2.3.3
 ARG HIVE_DOWNLOAD_DIR=/tmp/hive
-ARG POSTGRESQL_JDBC_VERSION=42.2.4
+ARG POSTGRESQL_JDBC_VERSION=42.2.5
 
 # Install Hive and PostgreSQL JDBC
 RUN curl -fSL https://archive.apache.org/dist/hive/hive-$HIVE_VERSION/apache-hive-$HIVE_VERSION-bin.tar.gz -o /tmp/hive.tar.gz \
@@ -69,6 +69,7 @@ ADD conf/hive-exec-log4j2.properties $HIVE_CONF_DIR
 ADD conf/hive-log4j2.properties $HIVE_CONF_DIR
 ADD conf/llap-daemon-log4j2.properties $HIVE_CONF_DIR
 ADD conf/llap-cli-log4j2.properties $HIVE_CONF_DIR
+ADD conf/tez-site.xml $HIVE_CONF_DIR
 
 EXPOSE 10000
 
