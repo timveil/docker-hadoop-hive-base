@@ -46,6 +46,7 @@ LABEL maintainer="tjveil@gmail.com"
 ENV HIVE_HOME=/opt/hive
 ENV PATH=$HIVE_HOME/bin:$PATH
 ENV HIVE_CONF_DIR=$HIVE_HOME/conf
+ENV TEZ_CONF_DIR=/etc/tez/conf
 
 ARG HIVE_VERSION=3.1.0
 ARG HIVE_DOWNLOAD_DIR=/tmp/hive
@@ -77,7 +78,7 @@ ADD conf/hive-exec-log4j2.properties $HIVE_CONF_DIR
 ADD conf/hive-log4j2.properties $HIVE_CONF_DIR
 ADD conf/llap-daemon-log4j2.properties $HIVE_CONF_DIR
 ADD conf/llap-cli-log4j2.properties $HIVE_CONF_DIR
-ADD conf/tez-site.xml $HIVE_CONF_DIR
+ADD conf/tez-site.xml $TEZ_CONF_DIR
 
 EXPOSE 10000
 
