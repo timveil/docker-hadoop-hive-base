@@ -3,7 +3,7 @@
 <configuration>
     <property>
         <name>tez.lib.uris</name>
-        <value>${fs.defaultFS}/apps/tez/tez-minimal.tar.gz</value>
+        <value>${fs.defaultFS}/apps/tez/</value>
     </property>
     <property>
         <name>tez.use.cluster.hadoop-libs</name>

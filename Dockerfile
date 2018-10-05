@@ -32,8 +32,8 @@ RUN git clone https://github.com/apache/tez.git /opt/tez
 RUN cd /opt/tez \
     && git checkout tags/rel/release-${TEZ_VERSION} -b release-${TEZ_VERSION} \
     && mvn clean package -Phadoop28 -Dhadoop.version=${HADOOP_VERSION} -Dprotobuf.version=${PROTOBUF_VERSION} -DskipTests=true -Dmaven.javadoc.skip=true --projects "!tez-ui" \
-    && cp /opt/tez/tez-dist/target/tez-${TEZ_VERSION}-minimal.tar.gz /tmp/tez-minimal.tar.gz \
-    && cp /opt/tez/tez-dist/target/tez-${TEZ_VERSION}.tar.gz /tmp/tez.tar.gz
+    && mkdir -pv /tmp/tez \
+    && tar -xvf /opt/tez/tez-dist/target/tez-${TEZ_VERSION}-minimal.tar.gz -C /tmp/tez
 
 
 
@@ -47,6 +47,7 @@ ENV HIVE_HOME=/opt/hive
 ENV PATH=$HIVE_HOME/bin:$PATH
 ENV HIVE_CONF_DIR=$HIVE_HOME/conf
 ENV TEZ_CONF_DIR=/etc/tez/conf
+ENV TEZ_LIB_DIR=/opt/tez
 
 ARG HIVE_VERSION=3.1.0
 ARG HIVE_DOWNLOAD_DIR=/tmp/hive
@@ -56,13 +57,14 @@ ARG POSTGRESQL_JDBC_VERSION=42.2.5
 RUN curl -fSL https://archive.apache.org/dist/hive/hive-$HIVE_VERSION/apache-hive-$HIVE_VERSION-bin.tar.gz -o /tmp/hive.tar.gz \
     && mkdir -pv $HIVE_DOWNLOAD_DIR \
     && mkdir -pv $TEZ_CONF_DIR \
+    && mkdir -pv $TEZ_LIB_DIR \
     && tar -xvf /tmp/hive.tar.gz -C $HIVE_DOWNLOAD_DIR --strip-components=1 \
     && mv -v $HIVE_DOWNLOAD_DIR /opt \
     && rm -rfv /tmp/hive.tar.gz \
     && rm -rfv $HIVE_HOME/lib/postgresql-*.jre*.jar \
     && curl -fSL https://jdbc.postgresql.org/download/postgresql-$POSTGRESQL_JDBC_VERSION.jar -o $HIVE_HOME/lib/postgresql-jdbc.jar
 
-COPY --from=tez-builder /tmp/*.tar.gz /tmp/
+COPY --from=tez-builder /tmp/tez/*.jar $TEZ_LIB_DIR/
 
 # Custom configuration goes here
 ADD conf/hive-site.xml $HIVE_CONF_DIR
