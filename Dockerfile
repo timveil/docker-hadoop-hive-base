@@ -55,6 +55,7 @@ ARG POSTGRESQL_JDBC_VERSION=42.2.5
 # Install Hive and PostgreSQL JDBC
 RUN curl -fSL https://archive.apache.org/dist/hive/hive-$HIVE_VERSION/apache-hive-$HIVE_VERSION-bin.tar.gz -o /tmp/hive.tar.gz \
     && mkdir -pv $HIVE_DOWNLOAD_DIR \
+    && mkdir -pv $TEZ_CONF_DIR \
     && tar -xvf /tmp/hive.tar.gz -C $HIVE_DOWNLOAD_DIR --strip-components=1 \
     && mv -v $HIVE_DOWNLOAD_DIR /opt \
     && rm -rfv /tmp/hive.tar.gz \
