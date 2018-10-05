@@ -61,13 +61,7 @@ RUN curl -fSL https://archive.apache.org/dist/hive/hive-$HIVE_VERSION/apache-hiv
     && rm -rfv $HIVE_HOME/lib/postgresql-*.jre*.jar \
     && curl -fSL https://jdbc.postgresql.org/download/postgresql-$POSTGRESQL_JDBC_VERSION.jar -o $HIVE_HOME/lib/postgresql-jdbc.jar
 
-# Removing conflicting debendinceis which cause multiple binding warnings in slf4j
-# RUN rm -rfv $HADOOP_HOME/share/hadoop/common/lib/slf4j-log4j12-*.jar $HADOOP_HOME/share/hadoop/common/lib/log4j-*.jar
-
-# after removing above jars, the following is seen
-# SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
-# SLF4J: Defaulting to no-operation (NOP) logger implementation
-# SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+COPY --from=tez-builder /tmp/*.tar.gz /tmp/
 
 # Custom configuration goes here
 ADD conf/hive-site.xml $HIVE_CONF_DIR
