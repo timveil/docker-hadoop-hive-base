@@ -31,7 +31,7 @@ RUN git clone https://github.com/apache/tez.git /opt/tez
 
 RUN cd /opt/tez \
     && git checkout tags/rel/release-${TEZ_VERSION} -b release-${TEZ_VERSION} \
-    && mvn clean package -Phadoop28 -Dhadoop.version=${HADOOP_VERSION} -Dprotobuf.version=${PROTOBUF_VERSION} -DskipTests=true -Dmaven.javadoc.skip=true --projects "!tez-ui" \
+    && mvn clean package -Dhadoop.version=${HADOOP_VERSION} -Dprotobuf.version=${PROTOBUF_VERSION} -DskipTests=true -Dmaven.javadoc.skip=true --projects "!tez-ui" \
     && cp /opt/tez/tez-dist/target/tez-${TEZ_VERSION}-minimal.tar.gz /tmp/tez-minimal.tar.gz \
     && cp /opt/tez/tez-dist/target/tez-${TEZ_VERSION}.tar.gz /tmp/tez.tar.gz
 
