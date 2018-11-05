@@ -37,7 +37,7 @@ RUN cd /opt/tez \
 
 
 
-# Stage 1 - Build Hive base
+# Stage 2 - Build Hive base
 
 FROM timveil/docker-hadoop-core:3.1.x
 
@@ -49,7 +49,7 @@ ENV HIVE_CONF_DIR=$HIVE_HOME/conf
 ENV TEZ_CONF_DIR=/etc/tez/conf
 ENV TEZ_LIB_DIR=/opt/tez
 
-ARG HIVE_VERSION=3.1.0
+ARG HIVE_VERSION=3.1.1
 ARG HIVE_DOWNLOAD_DIR=/tmp/hive
 ARG POSTGRESQL_JDBC_VERSION=42.2.5
 
