@@ -76,6 +76,3 @@ ADD conf/llap-cli-log4j2.properties $HIVE_CONF_DIR
 ADD conf/tez-site.xml $TEZ_CONF_DIR
 
 EXPOSE 10000
-
-# hive ui
-EXPOSE 10002
