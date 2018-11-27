@@ -68,11 +68,7 @@ COPY --from=tez-builder /tmp/tez/*.jar $TEZ_LIB_DIR/
 
 # Custom configuration goes here
 ADD conf/hive-site.xml $HIVE_CONF_DIR
-ADD conf/beeline-log4j2.properties $HIVE_CONF_DIR
-ADD conf/hive-exec-log4j2.properties $HIVE_CONF_DIR
-ADD conf/hive-log4j2.properties $HIVE_CONF_DIR
-ADD conf/llap-daemon-log4j2.properties $HIVE_CONF_DIR
-ADD conf/llap-cli-log4j2.properties $HIVE_CONF_DIR
+ADD conf/log4j.properties $HIVE_CONF_DIR
 ADD conf/tez-site.xml $TEZ_CONF_DIR
 
 EXPOSE 10000
