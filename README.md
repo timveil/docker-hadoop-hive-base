@@ -14,12 +14,16 @@ SLF4J: Actual binding is of type [org.apache.logging.slf4j.Log4jLoggerFactory]
 
 Removing conflicting dependencies to solve above
 ```
-RUN rm -rfv $HADOOP_HOME/share/hadoop/common/lib/slf4j-log4j12-*.jar $HADOOP_HOME/share/hadoop/common/lib/log4j-*.jar
+rm -rfv $HADOOP_HOME/share/hadoop/common/lib/slf4j-log4j12-*.jar
 ```
 
 
-New error after above command
+New error after above command; this indicates that calls to hadoop (when adding tez jars) have no logger.  this isn't great but probably not as bad as original
 ```
+adding tez libs hadoop
+SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
 SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
 SLF4J: Defaulting to no-operation (NOP) logger implementation
 SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
