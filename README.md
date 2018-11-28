@@ -2,16 +2,25 @@
 
 docker build --no-cache -t timveil/docker-hadoop-hive-base:2.3.x .
 
+Original SLF4J error
 
-Removing conflicting dependencies which cause multiple binding warnings in slf4j
+```
+SLF4J: Class path contains multiple SLF4J bindings.
+SLF4J: Found binding in [jar:file:/opt/hive/lib/log4j-slf4j-impl-2.6.2.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/opt/hadoop/share/hadoop/common/lib/slf4j-log4j12-1.7.10.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+SLF4J: Actual binding is of type [org.apache.logging.slf4j.Log4jLoggerFactory]
+```
+
+Removing conflicting dependencies to solve above
 ```
 RUN rm -rfv $HADOOP_HOME/share/hadoop/common/lib/slf4j-log4j12-*.jar $HADOOP_HOME/share/hadoop/common/lib/log4j-*.jar
 ```
 
 
-after removing above jars, the following is seen
+New error after above command
 ```
-# SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
-# SLF4J: Defaulting to no-operation (NOP) logger implementation
-# SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
 ```
