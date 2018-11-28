@@ -62,6 +62,7 @@ RUN curl -fSL https://archive.apache.org/dist/hive/hive-$HIVE_VERSION/apache-hiv
     && mv -v $HIVE_DOWNLOAD_DIR /opt \
     && rm -rfv /tmp/hive.tar.gz \
     && rm -rfv $HIVE_HOME/lib/postgresql-*.jre*.jar \
+    && rm -rfv $HIVE_CONF_DIR/parquet-logging.properties \
     && curl -fSL https://jdbc.postgresql.org/download/postgresql-$POSTGRESQL_JDBC_VERSION.jar -o $HIVE_HOME/lib/postgresql-jdbc.jar
 
 COPY --from=tez-builder /tmp/tez/*.jar $TEZ_LIB_DIR/
@@ -73,6 +74,7 @@ ADD conf/hive-exec-log4j2.properties $HIVE_CONF_DIR
 ADD conf/hive-log4j2.properties $HIVE_CONF_DIR
 ADD conf/llap-daemon-log4j2.properties $HIVE_CONF_DIR
 ADD conf/llap-cli-log4j2.properties $HIVE_CONF_DIR
+ADD conf/parquet-logging.properties $HIVE_CONF_DIR
 ADD conf/tez-site.xml $TEZ_CONF_DIR
 
 EXPOSE 10000
