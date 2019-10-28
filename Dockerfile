@@ -9,7 +9,7 @@
 FROM maven:3.5 as tez-builder
 
 ARG TEZ_VERSION=0.9.1
-ARG HADOOP_VERSION=3.1.2
+ARG HADOOP_VERSION=3.1.3
 ARG PROTOBUF_VERSION=2.5.0
 
 RUN apt-get update && apt-get install -y autoconf automake libtool curl make g++ unzip
@@ -51,7 +51,7 @@ ENV TEZ_LIB_DIR=/opt/tez
 
 ARG HIVE_VERSION=3.1.2
 ARG HIVE_DOWNLOAD_DIR=/tmp/hive
-ARG POSTGRESQL_JDBC_VERSION=42.2.5
+ARG POSTGRESQL_JDBC_VERSION=42.2.8
 
 # Install Hive and PostgreSQL JDBC
 RUN curl -fSL https://archive.apache.org/dist/hive/hive-$HIVE_VERSION/apache-hive-$HIVE_VERSION-bin.tar.gz -o /tmp/hive.tar.gz \
