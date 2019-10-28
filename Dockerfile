@@ -9,7 +9,7 @@
 FROM maven:3.5 as tez-builder
 
 ARG TEZ_VERSION=0.9.2
-ARG HADOOP_VERSION=3.1.3
+ARG HADOOP_VERSION=3.2.1
 ARG PROTOBUF_VERSION=2.5.0
 
 RUN apt-get update && apt-get install -y autoconf automake libtool curl make g++ unzip
@@ -39,7 +39,7 @@ RUN cd /opt/tez \
 
 # Stage 2 - Build Hive base
 
-FROM timveil/docker-hadoop-core:3.1.x
+FROM timveil/docker-hadoop-core:3.2.x
 
 LABEL maintainer="tjveil@gmail.com"
 
