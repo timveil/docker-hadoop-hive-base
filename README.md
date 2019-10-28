@@ -2,6 +2,8 @@
 
 docker build --no-cache -t timveil/docker-hadoop-hive-base:3.1.x .
 
+docker push timveil/docker-hadoop-hive-base:3.1.x
+
 Original SLF4J error
 
 ```
