@@ -6,7 +6,7 @@
 
 # Stage 1 - Build Tez
 
-FROM maven:3.5 as tez-builder
+FROM maven:3-jdk-8 as tez-builder
 
 ARG TEZ_VERSION=0.9.2
 ARG HADOOP_VERSION=3.1.3
