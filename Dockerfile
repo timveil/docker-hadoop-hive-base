@@ -1,7 +1,8 @@
 ####################################
 #   Multi-stage build
 #       1. build tez
-#       2. build hive base
+#       2. build hive
+#       3. config hive base
 ####################################
 
 # Stage 1 - Build Tez
@@ -30,14 +31,26 @@ RUN git clone https://github.com/apache/tez.git /opt/tez
 # the tez-ui code relies on very old versions of node, bower, yarn, etc.  i could never get it to build succesfully in docker therefore i skip it during build
 
 RUN cd /opt/tez \
-    && git checkout tags/rel/release-${TEZ_VERSION} -b release-${TEZ_VERSION} \
+    && git checkout tags/rel/release-${TEZ_VERSION} --branch release-${TEZ_VERSION} --single-branch --depth 1 \
     && mvn clean package -Phadoop28 -Dhadoop.version=${HADOOP_VERSION} -Dprotobuf.version=${PROTOBUF_VERSION} -DskipTests=true -Dmaven.javadoc.skip=true --projects "!tez-ui" \
     && mkdir -pv /tmp/tez \
     && tar -xvf /opt/tez/tez-dist/target/tez-${TEZ_VERSION}-minimal.tar.gz -C /tmp/tez
 
 
+# Stage 2 - build hive
 
-# Stage 2 - Build Hive base
+ARG HIVE_BRANCH=release-3.1.2
+
+FROM maven:3-jdk-8-slim as hive-builder
+
+RUN apt-get update && apt-get install -y apt-utils git
+
+RUN git clone https://github.com/timveil/hive.git --branch $HIVE_BRANCH --single-branch --depth 1 /tmp/hive
+
+RUN cd /tmp/hive \
+    && mvn clean package -DskipTests -Pdist
+
+# Stage 3 - config Hive base
 
 FROM timveil/docker-hadoop-core:3.1.x
 
@@ -49,13 +62,13 @@ ENV HIVE_CONF_DIR=$HIVE_HOME/conf
 ENV TEZ_CONF_DIR=/etc/tez/conf
 ENV TEZ_LIB_DIR=/opt/tez
 
-ARG HIVE_VERSION=3.1.2
 ARG HIVE_DOWNLOAD_DIR=/tmp/hive
 ARG POSTGRESQL_JDBC_VERSION=42.2.8
 
+COPY --from=hive-builder /packaging/target/*-bin.tar.gz /tmp/hive.tar.gz
+
 # Install Hive and PostgreSQL JDBC
-RUN curl -fSL https://archive.apache.org/dist/hive/hive-$HIVE_VERSION/apache-hive-$HIVE_VERSION-bin.tar.gz -o /tmp/hive.tar.gz \
-    && mkdir -pv $HIVE_DOWNLOAD_DIR \
+RUN mkdir -pv $HIVE_DOWNLOAD_DIR \
     && mkdir -pv $TEZ_CONF_DIR \
     && mkdir -pv $TEZ_LIB_DIR \
     && tar -xvf /tmp/hive.tar.gz -C $HIVE_DOWNLOAD_DIR --strip-components=1 \
