@@ -26,29 +26,24 @@ RUN tar -xvf protobuf-${PROTOBUF_VERSION}.tar.gz \
     && make install \
     && ldconfig
 
-RUN git clone https://github.com/apache/tez.git /opt/tez
-
 # the tez-ui code relies on very old versions of node, bower, yarn, etc.  i could never get it to build succesfully in docker therefore i skip it during build
-
-RUN cd /opt/tez \
-    && git checkout tags/rel/release-${TEZ_VERSION} --branch release-${TEZ_VERSION} --single-branch --depth 1 \
+RUN git clone https://github.com/apache/tez.git --branch rel/release-${TEZ_VERSION} --single-branch --depth 1 /opt/tez \
+    && cd /opt/tez \
     && mvn clean package -Phadoop28 -Dhadoop.version=${HADOOP_VERSION} -Dprotobuf.version=${PROTOBUF_VERSION} -DskipTests=true -Dmaven.javadoc.skip=true --projects "!tez-ui" \
     && mkdir -pv /tmp/tez \
     && tar -xvf /opt/tez/tez-dist/target/tez-${TEZ_VERSION}-minimal.tar.gz -C /tmp/tez
 
-
 # Stage 2 - build hive
-
-ARG HIVE_BRANCH=release-3.1.2
 
 FROM maven:3-jdk-8-slim as hive-builder
 
+ARG HIVE_BRANCH=release-3.1.2
+
 RUN apt-get update && apt-get install -y apt-utils git
 
-RUN git clone https://github.com/timveil/hive.git --branch $HIVE_BRANCH --single-branch --depth 1 /tmp/hive
-
-RUN cd /tmp/hive \
-    && mvn clean package -DskipTests -Pdist
+RUN git clone https://github.com/timveil/hive.git --branch $HIVE_BRANCH --single-branch --depth 1 /tmp/hive \
+    && cd /tmp/hive \
+    && mvn clean package -DskipTests -Dmaven.javadoc.skip=true -Pdist
 
 # Stage 3 - config Hive base
 
