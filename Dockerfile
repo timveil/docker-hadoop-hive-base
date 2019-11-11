@@ -64,7 +64,7 @@ ENV TEZ_LIB_DIR=/opt/tez
 
 ARG HIVE_DOWNLOAD_DIR=/tmp/hive
 
-COPY --from=hive-builder /packaging/target/*-bin.tar.gz /tmp/hive.tar.gz
+COPY --from=hive-builder /tmp/hive/packaging/target/*-bin.tar.gz /tmp/hive.tar.gz
 
 # Install Hive
 RUN mkdir -pv $HIVE_DOWNLOAD_DIR \
