@@ -63,19 +63,17 @@ ENV TEZ_CONF_DIR=/etc/tez/conf
 ENV TEZ_LIB_DIR=/opt/tez
 
 ARG HIVE_DOWNLOAD_DIR=/tmp/hive
-ARG POSTGRESQL_JDBC_VERSION=42.2.8
 
 COPY --from=hive-builder /packaging/target/*-bin.tar.gz /tmp/hive.tar.gz
 
-# Install Hive and PostgreSQL JDBC
+# Install Hive
 RUN mkdir -pv $HIVE_DOWNLOAD_DIR \
     && mkdir -pv $TEZ_CONF_DIR \
     && mkdir -pv $TEZ_LIB_DIR \
     && tar -xvf /tmp/hive.tar.gz -C $HIVE_DOWNLOAD_DIR --strip-components=1 \
     && mv -v $HIVE_DOWNLOAD_DIR /opt \
     && rm -rfv /tmp/hive.tar.gz \
-    && rm -rfv $HIVE_HOME/lib/postgresql-*.jre*.jar \
-    && curl -fSL https://jdbc.postgresql.org/download/postgresql-$POSTGRESQL_JDBC_VERSION.jar -o $HIVE_HOME/lib/postgresql-jdbc.jar
+    && rm -rfv $HIVE_HOME/lib/postgresql-*.jre*.jar
 
 COPY --from=tez-builder /tmp/tez/*.jar $TEZ_LIB_DIR/
 
