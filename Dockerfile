@@ -22,7 +22,6 @@ RUN tar -xvf protobuf-${PROTOBUF_VERSION}.tar.gz \
     && cd protobuf-${PROTOBUF_VERSION} \
     && ./configure --prefix=/usr \
     && make \
-    && make check \
     && make install \
     && ldconfig
 
