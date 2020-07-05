@@ -49,9 +49,9 @@ ENV HIVE_CONF_DIR=$HIVE_HOME/conf
 ENV TEZ_CONF_DIR=/etc/tez/conf
 ENV TEZ_LIB_DIR=/opt/tez
 
-ARG HIVE_VERSION=2.3.4
+ARG HIVE_VERSION=2.3.7
 ARG HIVE_DOWNLOAD_DIR=/tmp/hive
-ARG POSTGRESQL_JDBC_VERSION=42.2.5
+ARG POSTGRESQL_JDBC_VERSION=42.2.14
 
 # Install Hive and PostgreSQL JDBC
 RUN curl -fSL https://archive.apache.org/dist/hive/hive-$HIVE_VERSION/apache-hive-$HIVE_VERSION-bin.tar.gz -o /tmp/hive.tar.gz \
