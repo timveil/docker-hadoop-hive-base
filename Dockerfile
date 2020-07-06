@@ -53,6 +53,8 @@ ARG HIVE_VERSION=3.1.2
 ARG HIVE_DOWNLOAD_DIR=/tmp/hive
 ARG POSTGRESQL_JDBC_VERSION=42.2.14
 
+# removing older guava version which is causing classpath issues at runtime
+
 # Install Hive and PostgreSQL JDBC
 RUN curl -fSL https://archive.apache.org/dist/hive/hive-$HIVE_VERSION/apache-hive-$HIVE_VERSION-bin.tar.gz -o /tmp/hive.tar.gz \
     && mkdir -pv $HIVE_DOWNLOAD_DIR \
@@ -62,7 +64,7 @@ RUN curl -fSL https://archive.apache.org/dist/hive/hive-$HIVE_VERSION/apache-hiv
     && mv -v $HIVE_DOWNLOAD_DIR /opt \
     && rm -rfv /tmp/hive.tar.gz \
     && rm -rfv $HIVE_HOME/lib/guava-*.jar \
-    && cp /opt/hadoop/share/hadoop/common/lib/guava-*.jar $HIVE_HOME/lib/ \
+    && cp $HADOOP_HOME/share/hadoop/common/lib/guava-*.jar $HIVE_HOME/lib/ \
     && rm -rfv $HIVE_HOME/lib/postgresql-*.jre*.jar \
     && curl -fSL https://jdbc.postgresql.org/download/postgresql-$POSTGRESQL_JDBC_VERSION.jar -o $HIVE_HOME/lib/postgresql-jdbc.jar
 
