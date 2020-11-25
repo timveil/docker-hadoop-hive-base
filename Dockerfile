@@ -10,7 +10,7 @@
 FROM maven:3-jdk-8 as tez-builder
 
 ARG TEZ_VERSION=0.9.2
-ARG HADOOP_VERSION=3.1.3
+ARG HADOOP_VERSION=3.1.4
 ARG PROTOBUF_VERSION=2.5.0
 
 RUN apt-get update && apt-get install -y autoconf automake libtool curl make g++ unzip
