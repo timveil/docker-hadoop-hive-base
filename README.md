@@ -1,4 +1,4 @@
-# Docker Hadoop - Hive Base (3.1.x)
+# Docker Hadoop - Hive Base (3.1.x-fork)
 
 `Dockerfile` responsible for extending `docker-hadoop-core` and installing and configuring core Hive components.  This image is extended by a number of other Hive related images including HiveServe2.
 
