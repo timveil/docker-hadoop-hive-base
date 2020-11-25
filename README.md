@@ -1,30 +1,18 @@
-# docker-hadoop-hive-base
+# Docker Hadoop - Hive Base (2.3.x)
 
+`Dockerfile` responsible for extending `docker-hadoop-core` and installing and configuring core Hive components.  This image is extended by a number of other Hive related images including HiveServe2.
+
+## Building the Image
+```bash
 docker build --no-cache -t timveil/docker-hadoop-hive-base:2.3.x .
-
-Original SLF4J error
-
-```
-SLF4J: Class path contains multiple SLF4J bindings.
-SLF4J: Found binding in [jar:file:/opt/hive/lib/log4j-slf4j-impl-2.6.2.jar!/org/slf4j/impl/StaticLoggerBinder.class]
-SLF4J: Found binding in [jar:file:/opt/hadoop/share/hadoop/common/lib/slf4j-log4j12-1.7.10.jar!/org/slf4j/impl/StaticLoggerBinder.class]
-SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
-SLF4J: Actual binding is of type [org.apache.logging.slf4j.Log4jLoggerFactory]
 ```
 
-Removing conflicting dependencies to solve above
-```
-rm -rfv $HADOOP_HOME/share/hadoop/common/lib/slf4j-log4j12-*.jar
+## Publishing the Image
+```bash
+docker push timveil/docker-hadoop-hive-base:2.3.x
 ```
 
-
-New error after above command; this indicates that calls to hadoop (when adding tez jars) have no logger.  this isn't great but probably not as bad as original
-```
-adding tez libs hadoop
-SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
-SLF4J: Defaulting to no-operation (NOP) logger implementation
-SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
-SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
-SLF4J: Defaulting to no-operation (NOP) logger implementation
-SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+## Running the Image
+```bash
+docker run -it timveil/docker-hadoop-hive-base:2.3.x
 ```
