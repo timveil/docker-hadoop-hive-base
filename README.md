@@ -1,13 +1,18 @@
-# docker-hadoop-hive-base
+# Docker Hadoop - Hive Base (3.1.x)
 
+`Dockerfile` responsible for extending `docker-hadoop-core` and installing and configuring core Hive components.  This image is extended by a number of other Hive related images including HiveServe2.
+
+## Building the Image
+```bash
 docker build --no-cache -t timveil/docker-hadoop-hive-base:3.1.x .
+```
 
+## Publishing the Image
+```bash
+docker push timveil/docker-hadoop-hive-base:3.1.x
+```
 
-
-# Removing conflicting debendinceis which cause multiple binding warnings in slf4j
-# RUN rm -rfv $HADOOP_HOME/share/hadoop/common/lib/slf4j-log4j12-*.jar $HADOOP_HOME/share/hadoop/common/lib/log4j-*.jar
-
-# after removing above jars, the following is seen
-# SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
-# SLF4J: Defaulting to no-operation (NOP) logger implementation
-# SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+## Running the Image
+```bash
+docker run -it timveil/docker-hadoop-hive-base:3.1.x
+```

@@ -6,10 +6,10 @@
 
 # Stage 1 - Build Tez
 
-FROM maven:3.5 as tez-builder
+FROM maven:3-jdk-8 as tez-builder
 
-ARG TEZ_VERSION=0.9.1
-ARG HADOOP_VERSION=3.1.1
+ARG TEZ_VERSION=0.9.2
+ARG HADOOP_VERSION=3.1.4
 ARG PROTOBUF_VERSION=2.5.0
 
 RUN apt-get update && apt-get install -y autoconf automake libtool curl make g++ unzip
@@ -49,9 +49,11 @@ ENV HIVE_CONF_DIR=$HIVE_HOME/conf
 ENV TEZ_CONF_DIR=/etc/tez/conf
 ENV TEZ_LIB_DIR=/opt/tez
 
-ARG HIVE_VERSION=3.1.1
+ARG HIVE_VERSION=3.1.2
 ARG HIVE_DOWNLOAD_DIR=/tmp/hive
-ARG POSTGRESQL_JDBC_VERSION=42.2.5
+ARG POSTGRESQL_JDBC_VERSION=42.2.14
+
+# removing older guava version which is causing classpath issues at runtime
 
 # Install Hive and PostgreSQL JDBC
 RUN curl -fSL https://archive.apache.org/dist/hive/hive-$HIVE_VERSION/apache-hive-$HIVE_VERSION-bin.tar.gz -o /tmp/hive.tar.gz \
@@ -61,6 +63,8 @@ RUN curl -fSL https://archive.apache.org/dist/hive/hive-$HIVE_VERSION/apache-hiv
     && tar -xvf /tmp/hive.tar.gz -C $HIVE_DOWNLOAD_DIR --strip-components=1 \
     && mv -v $HIVE_DOWNLOAD_DIR /opt \
     && rm -rfv /tmp/hive.tar.gz \
+    && rm -rfv $HIVE_HOME/lib/guava-*.jar \
+    && cp $HADOOP_HOME/share/hadoop/common/lib/guava-*.jar $HIVE_HOME/lib/ \
     && rm -rfv $HIVE_HOME/lib/postgresql-*.jre*.jar \
     && curl -fSL https://jdbc.postgresql.org/download/postgresql-$POSTGRESQL_JDBC_VERSION.jar -o $HIVE_HOME/lib/postgresql-jdbc.jar
 
